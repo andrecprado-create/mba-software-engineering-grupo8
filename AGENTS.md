@@ -4,11 +4,15 @@ Este arquivo define as regras, a stack e os limites para qualquer agente de IA (
 
 ## Contexto do produto
 
-O EmpCol cataloga HQs e livros por foto da capa e controla empréstimos a amigos, com lembretes de devolução. A visão e os requisitos estão em `docs/produto/`; as histórias e os critérios de aceite, em `docs/specs/`.
+O EmpCol é um **aplicativo mobile** que cataloga HQs e livros por foto da capa e controla empréstimos a amigos, com lembretes de devolução. A visão e os requisitos estão em `docs/produto/`; as histórias e os critérios de aceite, em `specs/`; as decisões de arquitetura, em `docs/adr/`.
+
+## Especificações (Spec-Kit)
+
+As especificações seguem a convenção do [Spec-Kit](https://github.com/github/spec-kit): uma pasta por funcionalidade em `specs/NNN-nome/`, com `spec.md` (histórias e critérios de aceite), `plan.md` (plano técnico) e `tasks.md` (tarefas). Escreva tudo em português do Brasil. Se o Spec-Kit gerar princípios próprios (`constitution.md`), eles não podem contradizer este arquivo: em caso de conflito, vale o `AGENTS.md`.
 
 ## Princípios
 
-1. **Especificação antes do código.** Não gere código sem uma história com critérios de aceite em `docs/specs/`. Se ela não existir, proponha a história e espere a aprovação do POD.
+1. **Especificação antes do código.** Não gere código sem uma história com critérios de aceite em `specs/`. Se ela não existir, proponha a história e espere a aprovação do POD.
 2. **Plano antes da execução.** Em cada ciclo, apresente o plano (o que construir e como), espere a aprovação, gere o código com os testes e entregue para revisão.
 3. **Testes como contrato.** Todo código novo vem com testes derivados dos critérios de aceite (Dado / Quando / Então).
 4. **Rastreabilidade.** Cite o identificador da história (ex.: `US-01`) na mensagem de commit, no título do PR e no nome ou descrição do teste.
@@ -16,12 +20,15 @@ O EmpCol cataloga HQs e livros por foto da capa e controla empréstimos a amigos
 
 ## Stack aprovada (v0)
 
-A stack definitiva será registrada em ADR no checkpoint 04. Até lá:
+Decisão registrada em `docs/adr/0001-aplicativo-mobile-expo.md`.
 
-* **Front-end:** React + TypeScript, Tailwind CSS e shadcn/ui
-* **IA:** Gemini API (modelo multimodal), chamada sempre pelo back-end
-* **Banco e autenticação:** Supabase (PostgreSQL)
-* **Testes:** Jest, React Testing Library e Playwright
+* **Aplicativo:** Expo (React Native) com TypeScript e Expo Router para a navegação
+* **Versão web (URL pública do MVP):** exportação web do próprio Expo, a partir do mesmo código
+* **Armazenamento local:** AsyncStorage
+* **IA:** Gemini API (modelo multimodal), chamada sempre pelo back-end, nunca direto do aplicativo
+* **Back-end, banco e autenticação:** Supabase (PostgreSQL), a confirmar no C2 (checkpoint 04)
+* **Design system:** a definir em ADR no checkpoint 03, entre opções compatíveis com React Native
+* **Testes:** Jest e React Native Testing Library
 
 Qualquer dependência fora desta lista precisa de ADR aprovado antes de ser adicionada.
 
