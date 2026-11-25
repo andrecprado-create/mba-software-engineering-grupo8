@@ -13,7 +13,7 @@
 
 ## Requirement Completeness
 
-- [ ] Nenhum marcador [NEEDS CLARIFICATION] pendente
+- [x] Nenhum marcador [NEEDS CLARIFICATION] pendente
 - [x] Requisitos testáveis e sem ambiguidade
 - [x] Critérios de sucesso mensuráveis
 - [x] Critérios de sucesso independentes de tecnologia
@@ -31,5 +31,5 @@
 
 ## Notes
 
-- Pendente: 1 marcador [NEEDS CLARIFICATION] na história 5 (canal de envio do lembrete ao amigo). Resolver com o POD antes de `/speckit-clarify` ou `/speckit-plan`.
-- O fluxo principal do MVP (histórias 1, 2 e 3, todas P1) não depende dessa resposta.
+- Resolvido em 25/11/2026: o canal do lembrete (história 5) é o colecionador disparando a mensagem pronta pelo próprio aplicativo de mensagens. Registrado na seção Clarifications da spec.
+- Todos os itens passam. A spec está pronta para `/speckit-plan`.
