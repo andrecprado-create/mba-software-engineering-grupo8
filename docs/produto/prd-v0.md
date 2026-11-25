@@ -1,29 +1,44 @@
-# PRD v0 — EmpCol (Product Requirement Document)
+# PRD v0 — EmpCol
 
-## 🎯 1. Visão e Objetivo
-Transformar a experiência de manter uma biblioteca pessoal, eliminando o trabalho manual de catalogação e garantindo 100% de rastreabilidade sobre livros e HQs emprestados[cite: 1].
+## 1. Visão e objetivo
 
-## 💡 Hipótese de Valor
-> **Acreditamos que** a catalogação automática por foto associada a um sistema de gestão de empréstimos com lembretes inteligentes para colecionadores de HQs e livros **vai gerar** maior organização e prevenção de perdas de acervo. **Saberemos que é verdade quando** a taxa de itens catalogados por foto e o registo ativo de empréstimos ultrapassarem 70% entre os utilizadores ativos[cite: 1].
+Simplificar a manutenção de uma biblioteca pessoal: eliminar o cadastro manual e saber sempre onde está cada livro ou HQ emprestado.
 
-## 👥 2. Público-Alvo
-* **Perfil:** Adultos e jovens entre 18 e 45 anos, colecionadores de HQs, mangás e livros de ficção/não-ficção[cite: 1].
-* **Dores:** Perdem edições valiosas ao emprestar; têm preguiça de preencher título, autor e editora manualmente[cite: 1].
+### Hipótese de valor
 
-## ⚙️ 3. Requisitos Funcionais (Escopo do MVP)
-* **RF01 — Cadastro de Item por Foto (IA):** O utilizador tira uma foto da capa e a IA identifica título, autor, editora e volume[cite: 1].
-* **RF02 — Lista de Coleção:** Visualização dos itens catalogados com filtros (Na estante / Emprestado)[cite: 1].
-* **RF03 — Registo de Empréstimo:** Associar um item catalogado ao nome/contacto de um amigo e definir data prevista de devolução[cite: 1].
-* **RF04 — Notificação de Lembrete:** Envio de alerta quando o prazo de devolução expirar[cite: 1].
+> **Acreditamos que** a catalogação automática por foto, junto com a gestão de empréstimos com lembretes, **para** colecionadores de HQs e leitores com biblioteca pessoal, **vai gerar** mais organização e menos perdas no acervo. **Saberemos que é verdade quando** mais de 70% dos usuários ativos catalogarem itens por foto e registrarem empréstimos pelo aplicativo.
 
-## 🔒 4. Requisitos Não Funcionais
-* **RNF01 (Performance):** O reconhecimento da capa por IA deve responder em menos de 3 segundos[cite: 1].
-* **RNF02 (Segurança):** Cumprimento da LGPD na recolha de dados de contactos para empréstimos[cite: 1].
-* **RNF03 (Acessibilidade):** Interface responsiva compatível com browsers mobile e desktop[cite: 1].
+## 2. Público-alvo
 
-## ✅ 5. Critérios de Aceite (Exemplo Inicial)
+* **Perfil:** pessoas de 18 a 45 anos que colecionam HQs, mangás e livros.
+* **Dores:** perdem edições valiosas quando emprestam; não têm paciência para digitar título, autor e editora de cada item.
+
+## 3. Requisitos funcionais (escopo do MVP)
+
+* **RF01 — Cadastro por foto (IA):** o usuário fotografa a capa e a IA identifica título, autor, editora e volume.
+* **RF02 — Estante:** lista dos itens catalogados, com filtro por situação (na estante ou emprestado).
+* **RF03 — Registro de empréstimo:** vincular um item ao nome e ao contato de um amigo e definir a data prevista de devolução.
+* **RF04 — Lembrete de devolução:** avisar quando o prazo de devolução vencer.
+
+## 4. Requisitos não funcionais
+
+* **RNF01 (desempenho):** o reconhecimento da capa responde em menos de 3 segundos.
+* **RNF02 (segurança e privacidade):** cumprir a LGPD na coleta dos dados de contato usados nos empréstimos.
+* **RNF03 (usabilidade):** interface responsiva, utilizável no celular e no computador.
+
+## 5. Critérios de aceite (exemplo inicial)
+
 ```gherkin
-Dado que estou na página de catalogação
+Dado que estou na tela de catalogação
 Quando tiro uma foto nítida da capa de um livro
-Então a IA deve preencher automaticamente o Título, Autor e Editora em menos de 3 segundos
-E permitir a confirmação do registo pelo utilizador[cite: 1].
+Então a IA preenche título, autor e editora em menos de 3 segundos
+E eu posso confirmar ou corrigir os dados antes de salvar
+```
+
+## 6. Métricas de sucesso
+
+* **Adoção da IA:** percentual de itens catalogados por foto sobre o total de itens cadastrados (meta: acima de 70%).
+* **Precisão da IA:** taxa de acerto na leitura das capas, medida pelo eval em `/evals/` (meta: 85% ou mais).
+* **Rapidez:** tempo para registrar item, amigo e prazo (meta: menos de 10 segundos).
+* **Uso do controle de empréstimos:** percentual de usuários ativos com ao menos um empréstimo registrado (meta: acima de 70%).
+* **Retenção:** usuários que voltam ao aplicativo na semana seguinte.
