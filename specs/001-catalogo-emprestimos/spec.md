@@ -172,7 +172,8 @@ Como colecionador no plano gratuito, quero saber quantas edições ainda posso c
 - **FR-010**: O aplicativo DEVE marcar como "Atrasado" todo empréstimo não devolvido após a data combinada.
 - **FR-011**: O aplicativo DEVE permitir registrar a devolução e manter o histórico de empréstimos de cada edição.
 - **FR-012**: O aplicativo DEVE avisar o colecionador 24 horas antes da data combinada e cancelar o aviso se a devolução for registrada antes ou se a data mudar (reagendando para a nova data).
-- **FR-013**: O aplicativo DEVE preparar mensagens prontas para o amigo (comprovante no empréstimo, lembrete de véspera e cobrança de atraso), com o nome do amigo, o título da edição e as datas, e abri-las no aplicativo de mensagens do colecionador para que ele confirme o envio.- **FR-014**: O aplicativo DEVE limitar o plano gratuito a 50 edições catalogadas e informar quantas ainda restam.
+- **FR-013**: O aplicativo DEVE preparar mensagens prontas para o amigo (comprovante no empréstimo, lembrete de véspera e cobrança de atraso), com o nome do amigo, o título da edição e as datas, e abri-las no aplicativo de mensagens do colecionador para que ele confirme o envio.
+- **FR-014**: O aplicativo DEVE limitar o plano gratuito a 50 edições catalogadas e informar quantas ainda restam.
 - **FR-015**: O aplicativo NÃO DEVE guardar nem enviar para análise dados pessoais que apareçam em fotos que não sejam capas, e DEVE coletar do amigo apenas nome e um contato (LGPD).
 - **FR-016**: O aplicativo NÃO DEVE enviar mensagens ao amigo sem a confirmação do colecionador.
 
