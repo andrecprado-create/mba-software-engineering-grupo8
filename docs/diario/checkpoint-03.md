@@ -12,8 +12,8 @@
 
 ## Onde o agente errou ou foi corrigido
 
-- **Regra de revisão desatualizada:** o AGENTS.md e a constitution ainda exigiam revisão de "outro membro do POD", o que não corresponde ao modo de trabalho decidido pelo POD. O agente alinhou os dois textos.
-- **Mensagens prontas:** o primeiro rascunho das mensagens ao amigo não deixava claro que eram do EmpCol. O agente incluiu o prefixo "Lembrete do EmpCol" / "Comprovante do EmpCol", seguindo o ponto de atenção do discovery (Mariana).
+- **Regra de revisão desatualizada:** o AGENTS.md e a constitution, escritos pelo próprio agente em checkpoints anteriores, exigiam revisão de "outro membro do POD", o que não corresponde ao modo de trabalho decidido pelo POD. O agente alinhou os dois textos.
+- **Status do ADR 0001:** ficou como "Proposto" desde o checkpoint 02, embora a decisão já estivesse tomada. Passou a "Aceito" neste ciclo.
 
 ## Onde o POD interveio
 
