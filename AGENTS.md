@@ -1,4 +1,4 @@
-# AGENTS.md — Harness do agente (v0)
+# AGENTS.md — Harness do agente (v1, checkpoint 03)
 
 Este arquivo define as regras, a stack e os limites para qualquer agente de IA (Claude Code, Cursor, GitHub Copilot, Kiro) que trabalhe neste repositório. Ele evolui a cada encontro com o que o POD aprender.
 
@@ -16,9 +16,9 @@ As especificações seguem a convenção do [Spec-Kit](https://github.com/github
 2. **Plano antes da execução.** Em cada ciclo, apresente o plano (o que construir e como), espere a aprovação, gere o código com os testes e entregue para revisão.
 3. **Testes como contrato.** Todo código novo vem com testes derivados dos critérios de aceite (Dado / Quando / Então).
 4. **Rastreabilidade.** Cite o identificador da história (ex.: `US-01`) na mensagem de commit, no título do PR e no nome ou descrição do teste.
-5. **Design system obrigatório.** Use apenas os componentes e os tokens do design system escolhido em ADR. Não crie estilos próprios.
+5. **Design system obrigatório.** Use apenas os componentes do React Native Paper e as cores, fontes e formas do tema central. Não defina cores, tamanhos ou estilos próprios nas telas.
 
-## Stack aprovada (v0)
+## Stack aprovada
 
 Decisão registrada em `docs/adr/0001-aplicativo-mobile-expo.md`.
 
@@ -27,7 +27,7 @@ Decisão registrada em `docs/adr/0001-aplicativo-mobile-expo.md`.
 * **Armazenamento local:** AsyncStorage
 * **IA:** Gemini API (modelo multimodal), chamada sempre pelo back-end, nunca direto do aplicativo
 * **Back-end, banco e autenticação:** Supabase (PostgreSQL), a confirmar no C2 (checkpoint 04)
-* **Design system:** a definir em ADR no checkpoint 03, entre opções compatíveis com React Native
+* **Design system:** React Native Paper (Material Design 3), com um único tema central (`docs/adr/0002-design-system-react-native-paper.md`)
 * **Testes:** Jest e React Native Testing Library
 
 Qualquer dependência fora desta lista precisa de ADR aprovado antes de ser adicionada.
@@ -35,7 +35,7 @@ Qualquer dependência fora desta lista precisa de ADR aprovado antes de ser adic
 ## Limites
 
 * **Nunca** grave chaves de API, senhas ou tokens em arquivos versionados. Use variáveis de ambiente e mantenha só um `.env.example` sem valores.
-* **Nunca** faça commit direto na `main`. Todo código entra por Pull Request, revisado por outro membro do POD.
+* **Nunca** faça commit direto na `main`. Todo código entra por Pull Request, revisado e aprovado pelo POD antes do merge.
 * **No máximo 2 PRs abertos** ao mesmo tempo: revise antes de gerar mais.
 * **LGPD:** colete apenas o necessário sobre o amigo que recebe o empréstimo (nome e um contato). Não envie dados pessoais para o modelo de IA; ele recebe só a imagem da capa.
 * Não altere `docs/produto/`, `docs/adr/` ou este arquivo sem pedido explícito do POD.

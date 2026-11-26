@@ -1,6 +1,6 @@
 # ADR 0001 — O EmpCol é um aplicativo mobile em Expo (React Native)
 
-* **Status:** Proposto (passa a Aceito com a aprovação do PR por outro membro do POD)
+* **Status:** Aceito (26/11/2026)
 * **Data:** 25/11/2026
 * **Proposto por:** André de Carvalho Prado (PO)
 * **Revisão:** Tech Lead (Leandro Costa Moreira), dono dos ADRs no POD

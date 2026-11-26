@@ -18,7 +18,7 @@ Cada teste, commit e PR cita a história de origem. Quando um teste falha, deve 
 
 ### IV. Humano no loop
 
-O agente propõe o plano, o POD aprova, o agente executa e o POD revisa. Todo PR é revisado por outro membro do POD, com no máximo 2 PRs abertos ao mesmo tempo.
+O agente propõe o plano, o POD aprova, o agente executa e o POD revisa. Todo PR é revisado pelo POD antes do merge, com no máximo 2 PRs abertos ao mesmo tempo.
 
 ### V. Simplicidade e segurança
 

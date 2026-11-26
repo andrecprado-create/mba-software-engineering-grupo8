@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EmpCol — Catalogar por foto</title>
+</head>
+<body>
+<!-- Tela: Catalogar · História: US1 (cenários 1 e 4) -->
+<p><a href="index.html">&larr; Estante</a></p>
+<h1>Catalogar por foto</h1>
+<p>Fotografe a capa inteira, de frente e com boa luz. Só a capa: nada de rostos ou documentos.</p>
+
+<form action="confirmar.html" method="get">
+  <p>
+    <label for="foto">Foto da capa</label><br>
+    <input id="foto" name="foto" type="file" accept="image/*" capture="environment">
+  </p>
+  <p><button type="submit"><strong>Ler capa</strong></button></p>
+</form>
+
+<p>Prefere digitar? <a href="manual.html">Preencher à mão</a></p>
+
+<hr>
+<p><small>Simulação: <a href="nao-reconhecida.html">capa não reconhecida</a></small></p>
+</body>
+</html>
