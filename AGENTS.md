@@ -40,6 +40,10 @@ Qualquer dependência fora desta lista precisa de ADR aprovado antes de ser adic
 * **LGPD:** colete apenas o necessário sobre o amigo que recebe o empréstimo (nome e um contato). Não envie dados pessoais para o modelo de IA; ele recebe só a imagem da capa.
 * Não altere `docs/produto/`, `docs/adr/` ou este arquivo sem pedido explícito do POD.
 
+## Aprendizados incorporados
+
+* **Checkpoint 02:** confira o conteúdo atual de um arquivo antes de afirmar o que ele diz; depois de editar listas numeradas (requisitos, histórias), confira a numeração completa; nunca registre como evidência de discovery um dado que o POD não confirmou.
+
 ## Diário agêntico
 
 Ao final de cada checkpoint, registre em `docs/diario/checkpoint-NN.md` o que o agente fez, onde errou e onde o POD interveio.
