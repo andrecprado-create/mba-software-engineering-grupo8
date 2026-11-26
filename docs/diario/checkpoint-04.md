@@ -19,6 +19,7 @@
 - **Dependências de teste:** a primeira instalação colocou Jest e a Testing Library nas dependências de produção; movidas para `devDependencies`.
 - **Chave do Gemini e modelo:** o agente planejou pedir ao POD uma chave própria do Gemini, sem checar que a Netlify injeta uma chave do AI Gateway nas funções. No primeiro deploy, a API respondeu 502, porque essa chave só funciona pelo endereço do gateway. A função passou a usar `GOOGLE_GEMINI_BASE_URL`, e o modelo padrão passou de `gemini-2.5-flash`, que o gateway não lista, para `gemini-3.8-flash`.
 - **Autorização da Netlify no navegador embutido:** a janela de autorização do GitHub não abre no navegador embutido; ao recarregar a página, o agente ainda apagou a lista de repositórios que tinha aparecido. O POD fez a ligação no próprio navegador.
+- **Formato do pedido ao gateway:** depois do ajuste do endereço, o gateway ainda recusava o pedido (400). O log da função, que passou a registrar a mensagem do Gemini, mostrou a causa: o gateway exige `role: "user"` no conteúdo, que a API do Google aceita sem. Corrigido nos PRs 10 e 11.
 
 ## Onde o POD interveio
 
@@ -28,5 +29,6 @@
 
 ## Pendências
 
+- **Leitura de capa no ar:** uma capa de teste (desenho fictício feito pelo agente, não uma edição real) foi lida em <https://empcol.netlify.app/api/ler-capa> com título, autor, volume e editora, em 3,3 a 5,1 s, **acima da meta de 3 s (SC-001)**. O eval com capas reais e o ajuste de tempo (modelo mais leve ou foto menor) ficam para o checkpoint 05.
 - **Rodar no celular** com o Expo Go (o fluxo foi verificado só na versão web).
 - Notificação de véspera (US5), eval da IA e limite de requisições ficam para o checkpoint 05 (`specs/001-catalogo-emprestimos/tasks.md`).

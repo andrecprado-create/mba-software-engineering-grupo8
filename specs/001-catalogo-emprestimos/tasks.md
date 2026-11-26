@@ -34,5 +34,5 @@ Base: [plan.md](plan.md) e [spec.md](spec.md). `[x]` = feito; `[ ]` = pendente.
 - [x] T030 Ligar o site na Netlify (<https://empcol.netlify.app>), usar o AI Gateway para o Gemini e registrar a URL pública no README
 - [ ] T031 Eval da leitura de capa em `/evals/` com 10 a 20 capas reais, rodando na CI (SC-002)
 - [ ] T032 Limite de requisições da API de leitura de capa
-- [ ] T033 Testar o fluxo no celular com o Expo Go e medir SC-001 e SC-003
+- [ ] T033 Testar o fluxo no celular com o Expo Go e medir SC-001 e SC-003 (no walking skeleton, a API levou 3,3 a 5,1 s com uma capa de teste)
 - [ ] T034 Tornar o job de testes obrigatório na proteção da `main`
