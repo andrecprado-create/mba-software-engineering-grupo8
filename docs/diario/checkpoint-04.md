@@ -17,14 +17,16 @@
 - **Navegação depois de salvar:** a primeira versão voltava para a estante empilhando uma nova tela, e a estante mostrava o botão de voltar. Trocado por `router.dismissTo('/')`, verificado no navegador.
 - **Filtro cortado:** o rótulo "Emprestadas" ficava truncado no botão segmentado em tela de 375 px; trocado por chips do próprio Paper.
 - **Dependências de teste:** a primeira instalação colocou Jest e a Testing Library nas dependências de produção; movidas para `devDependencies`.
+- **Chave do Gemini e modelo:** o agente planejou pedir ao POD uma chave própria do Gemini, sem checar que a Netlify injeta uma chave do AI Gateway nas funções. No primeiro deploy, a API respondeu 502, porque essa chave só funciona pelo endereço do gateway. A função passou a usar `GOOGLE_GEMINI_BASE_URL`, e o modelo padrão passou de `gemini-2.5-flash`, que o gateway não lista, para `gemini-3.8-flash`.
+- **Autorização da Netlify no navegador embutido:** a janela de autorização do GitHub não abre no navegador embutido; ao recarregar a página, o agente ainda apagou a lista de repositórios que tinha aparecido. O POD fez a ligação no próprio navegador.
 
 ## Onde o POD interveio
 
 - Autorizou a instalação do Node.js na máquina de desenvolvimento.
 - Aprovou seguir checkpoint a checkpoint até chegar ao que a disciplina de mobile exige.
+- Ligou o repositório ao projeto `empcol` na Netlify: <https://empcol.netlify.app>.
 
 ## Pendências
 
-- **Ligar o site na Netlify** ao repositório e configurar `GEMINI_API_KEY`: depende do POD, no painel da Netlify. Até lá, a leitura por foto responde que não está configurada e o aplicativo oferece o preenchimento à mão.
 - **Rodar no celular** com o Expo Go (o fluxo foi verificado só na versão web).
 - Notificação de véspera (US5), eval da IA e limite de requisições ficam para o checkpoint 05 (`specs/001-catalogo-emprestimos/tasks.md`).

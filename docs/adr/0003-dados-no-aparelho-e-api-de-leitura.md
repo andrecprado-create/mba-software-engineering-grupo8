@@ -27,7 +27,7 @@ Opção 3.
 
 * **Armazenamento:** AsyncStorage no aparelho (localStorage na versão web). Edições, empréstimos e amigos (só nome e um contato) nunca saem do aparelho.
 * **API de leitura de capa:** `POST /api/ler-capa`, em TypeScript, executada como Netlify Function (hospedagem no ADR 0004). A lógica fica em `src/servidor/ler-capa.ts`, testada sem rede.
-* **Modelo:** `gemini-2.5-flash` por padrão, configurável pela variável `GEMINI_MODEL`, com resposta em JSON por esquema (título, autor, volume, editora e se a capa foi reconhecida).
+* **Modelo:** `gemini-3.8-flash` por padrão (revisto em 26/11/2026, ao ligar o AI Gateway da Netlify, que não lista mais o 2.5), configurável pela variável `GEMINI_MODEL`, com resposta em JSON por esquema (título, autor, volume, editora e se a capa foi reconhecida).
 * **Captura da foto:** `expo-image-picker`, módulo do próprio Expo (câmera no celular, arquivo na web).
 * **Sem Supabase no MVP.** Se a sincronização entre aparelhos ou a conta virarem requisito, abre-se um novo ADR.
 

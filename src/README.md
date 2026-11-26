@@ -40,7 +40,7 @@ npm run typecheck    # tipos
 npm run export:web   # gera a versão web em dist/
 ```
 
-No celular, a leitura por foto precisa de `EXPO_PUBLIC_API_URL` com o endereço do site na Netlify (veja `.env.example`). Sem ela, ou sem a chave do Gemini no servidor, o aplicativo avisa e oferece o preenchimento à mão.
+A versão publicada fica em <https://empcol.netlify.app>. No celular, a leitura por foto precisa de `EXPO_PUBLIC_API_URL=https://empcol.netlify.app` (veja `.env.example`). Sem ela, ou se o serviço de IA falhar, o aplicativo avisa e oferece o preenchimento à mão.
 
 ## Disciplina de desenvolvimento mobile
 
