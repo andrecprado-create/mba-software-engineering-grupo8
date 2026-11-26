@@ -34,6 +34,30 @@ Todos operam agentes e revisam PRs. O papel define quem responde pelo artefato.
 
 ---
 
+## Trabalho de Desenvolvimento Mobile (prof. Uedson Reis)
+
+**Opção escolhida:** opção 1, com 4 telas do aplicativo do Bootcamp. **Grupo:** André de Carvalho Prado, Leandro Costa Moreira e Pablo Benachio.
+
+O aplicativo está em [`src/`](src/README.md), feito em Expo (React Native) com TypeScript. Também roda na web: <https://empcol.netlify.app>.
+
+| Tela | Arquivo | O que faz |
+| :--- | :--- | :--- |
+| Estante | [`src/app/index.tsx`](src/app/index.tsx) | Lista as edições com a situação (na estante, emprestada, atrasada), filtro e contador do plano |
+| Catalogar | [`src/app/catalogar.tsx`](src/app/catalogar.tsx) | Foto da capa (câmera ou galeria) lida por IA, conferência dos dados ou preenchimento à mão |
+| Edição | [`src/app/edicao/[id].tsx`](src/app/edicao/[id].tsx) | Detalhe, devolução, histórico e mensagem de cobrança |
+| Emprestar | [`src/app/emprestar/[id].tsx`](src/app/emprestar/[id].tsx) | Registro do empréstimo com data sugerida e comprovante para o amigo |
+
+**Conceitos da disciplina:**
+
+* **Componentes:** [`ItemEdicao`](src/componentes/ItemEdicao.tsx) e [`MensagemPronta`](src/componentes/MensagemPronta.tsx), reutilizados entre as telas, mais os componentes do React Native Paper.
+* **Estado:** `useState` nas telas (filtro, campos do formulário, etapas da catalogação) e estado global com `useReducer` e Context em [`src/lib/estado.tsx`](src/lib/estado.tsx), salvo no aparelho com AsyncStorage.
+* **Eventos:** toque nos itens e filtros, câmera e galeria, digitação e validação dos campos, confirmação do empréstimo e envio da mensagem pelo WhatsApp ou e-mail.
+* **Navegação:** Expo Router em pilha ([`src/app/_layout.tsx`](src/app/_layout.tsx)), com rotas dinâmicas `/edicao/[id]` e `/emprestar/[id]`.
+
+**Como rodar:** com Node.js 24 ou mais novo, `cd src`, `npm install` e `npm start`; leia o QR code com o app Expo Go no celular. Os testes rodam com `npm test`.
+
+---
+
 ## Stack
 
 O resultado final do projeto é um **aplicativo mobile**. A decisão está registrada em [`docs/adr/0001-aplicativo-mobile-expo.md`](docs/adr/0001-aplicativo-mobile-expo.md).
