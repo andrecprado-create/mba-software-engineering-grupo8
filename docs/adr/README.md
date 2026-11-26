@@ -4,6 +4,5 @@ Um arquivo por decisão (`NNNN-titulo.md`), com contexto, opções, decisão e t
 
 | ADR | Decisão | Status |
 | :--- | :--- | :--- |
-| [0001](0001-aplicativo-mobile-expo.md) | O produto é um aplicativo mobile em Expo (React Native) | Proposto |
-
-Próximo ADR esperado: design system (checkpoint 03).
+| [0001](0001-aplicativo-mobile-expo.md) | O produto é um aplicativo mobile em Expo (React Native) | Aceito |
+| [0002](0002-design-system-react-native-paper.md) | Design system: React Native Paper (Material Design 3) | Aceito |
