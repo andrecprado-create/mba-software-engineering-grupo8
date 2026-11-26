@@ -34,10 +34,10 @@ const FORMATO_JSON =
 export function montarRequisicaoGemini(imagemBase64: string, tipoMime: string, comEsquema = true) {
   const parts = [{ inlineData: { mimeType: tipoMime, data: imagemBase64 } }, { text: `${INSTRUCAO} ${FORMATO_JSON}` }];
   if (!comEsquema) {
-    return { contents: [{ parts }], generationConfig: { temperature: 0, responseMimeType: 'application/json' } };
+    return { contents: [{ role: 'user', parts }], generationConfig: { temperature: 0, responseMimeType: 'application/json' } };
   }
   return {
-    contents: [{ parts }],
+    contents: [{ role: 'user', parts }],
     generationConfig: {
       temperature: 0,
       responseMimeType: 'application/json',
