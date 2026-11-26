@@ -24,6 +24,7 @@ describe('US1 — API de leitura de capa', () => {
     const buscar = fetchFalso(respostaGemini({ reconhecida: true, titulo: 'X' }));
     const r = await tratarLeituraCapa('POST', FOTO, CHAVE, buscar);
     expect(buscar.mock.calls[0][1].headers['x-goog-api-key']).toBe('chave-de-teste');
+    expect(JSON.parse(buscar.mock.calls[0][1].body).contents[0].role).toBe('user'); // exigido pelo AI Gateway
     expect(JSON.stringify(r)).not.toContain('chave-de-teste');
   });
 
