@@ -23,6 +23,12 @@ Todos operam agentes e revisam PRs. O papel define quem responde pelo artefato.
 * **MVP (URL pública):** a definir no checkpoint 04 (walking skeleton) e publicada no checkpoint 05.
 * **Landing page de validação:** <https://visionary-profiterole-17a94c.netlify.app/>
 
+## Artefatos de produto
+
+* [Lean Canvas](docs/produto/lean-canvas.md) · [Evidências de discovery](docs/produto/discovery.md) · [AI Canvas](docs/produto/ai-canvas.md)
+* [MoSCoW do MVP](docs/produto/moscow.md) · [PRD v1](docs/produto/prd-v1.md) · [Spec 001 — histórias e critérios de aceite](specs/001-catalogo-emprestimos/spec.md)
+* [ADRs](docs/adr/) · [Diário agêntico](docs/diario/)
+
 ---
 
 ## Stack
