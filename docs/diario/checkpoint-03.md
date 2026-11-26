@@ -22,7 +22,7 @@
 
 - **Escopo do protótipo:** pediu para seguir checkpoint a checkpoint até chegar ao necessário para a disciplina de mobile.
 - **Design system:** a escolha do React Native Paper, recomendada pelo agente pelo prazo e pela compatibilidade com o Expo, fica registrada como decisão do POD no ADR 0002.
-- **Teste com usuários:** conduziu as sessões com 2 participantes pelo link público do protótipo (GitHub Pages) e registrou a observação; o agente transcreveu o registro em `docs/produto/teste-prototipo.md`.
+- **Teste com usuários:** conduziu as sessões com 2 participantes e registrou a observação; o agente transcreveu o registro em `docs/produto/teste-prototipo.md`.
 
 ## O que o teste mudou
 
@@ -32,4 +32,4 @@
 
 ## Pendências
 
-- **Perfil, data e formato das sessões** não foram anotados no registro do teste; o POD pode completá-los.
+- **Data exata e formato das sessões** não foram anotados no registro do teste; o POD pode completá-los.
