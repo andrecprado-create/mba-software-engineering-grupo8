@@ -176,6 +176,7 @@ Como colecionador no plano gratuito, quero saber quantas edições ainda posso c
 - **FR-014**: O aplicativo DEVE limitar o plano gratuito a 50 edições catalogadas e informar quantas ainda restam.
 - **FR-015**: O aplicativo NÃO DEVE guardar nem enviar para análise dados pessoais que apareçam em fotos que não sejam capas, e DEVE coletar do amigo apenas nome e um contato (LGPD).
 - **FR-016**: O aplicativo NÃO DEVE enviar mensagens ao amigo sem a confirmação do colecionador.
+- **FR-017**: O aplicativo DEVE abrir a mensagem pronta (comprovante, lembrete ou cobrança) de forma que o colecionador possa ajustar o texto antes de enviar. (Origem: teste do protótipo, 26/11/2026.)
 
 ### Key Entities *(include if feature involves data)*
 

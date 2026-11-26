@@ -32,7 +32,7 @@ Escopo priorizado em [MoSCoW](moscow.md). Detalhes e critérios de aceite estão
 | RF02 | Estante com capa, título e situação ("Na estante", "Emprestado", "Atrasado"), com filtro | US2 | Must |
 | RF03 | Registrar empréstimo: edição + amigo (nome e um contato) + data de devolução sugerida e editável | US3 | Must |
 | RF04 | Registrar devolução e manter o histórico de empréstimos da edição | US4 | Should |
-| RF05 | Avisar o colecionador 24 horas antes do prazo e abrir a mensagem pronta para o amigo no aplicativo de mensagens dele | US5 | Should |
+| RF05 | Avisar o colecionador 24 horas antes do prazo e abrir a mensagem pronta, editável, para o amigo no aplicativo de mensagens dele | US5 | Should |
 | RF06 | Oferecer comprovante pronto para o amigo na hora do empréstimo | US6 | Could |
 | RF07 | Limitar o plano gratuito a 50 edições e mostrar quantas restam | US7 | Could |
 

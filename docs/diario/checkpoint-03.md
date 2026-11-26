@@ -14,12 +14,22 @@
 
 - **Regra de revisão desatualizada:** o AGENTS.md e a constitution, escritos pelo próprio agente em checkpoints anteriores, exigiam revisão de "outro membro do POD", o que não corresponde ao modo de trabalho decidido pelo POD. O agente alinhou os dois textos.
 - **Status do ADR 0001:** ficou como "Proposto" desde o checkpoint 02, embora a decisão já estivesse tomada. Passou a "Aceito" neste ciclo.
+- **Watchmen já na estante:** o protótipo começava com o Watchmen catalogado, justamente a edição que a tarefa T1 pede para catalogar. O participante 1 hesitou por isso. O agente separou a estante inicial (`index.html`, sem o Watchmen) da estante depois do cadastro (`estante.html`).
+- **Orientação do T4:** ao explicar o teste ao POD, o agente disse que o participante abriria o aviso pelo rodapé da estante, contrariando o roteiro (quem conduz abre o aviso). Os dois participantes procuraram o link no rodapé. O roteiro agora deixa explícito que o aviso é entregue pronto.
+- **README desatualizado:** a regra de revisão "de outro membro do POD" continuava no README principal depois do alinhamento do AGENTS.md. Foi corrigida junto com os resultados do teste.
 
 ## Onde o POD interveio
 
 - **Escopo do protótipo:** pediu para seguir checkpoint a checkpoint até chegar ao necessário para a disciplina de mobile.
 - **Design system:** a escolha do React Native Paper, recomendada pelo agente pelo prazo e pela compatibilidade com o Expo, fica registrada como decisão do POD no ADR 0002.
+- **Teste com usuários:** conduziu as sessões com 2 participantes pelo link público do protótipo (GitHub Pages) e registrou a observação; o agente transcreveu o registro em `docs/produto/teste-prototipo.md`.
+
+## O que o teste mudou
+
+- **Data de devolução explícita** no registro do empréstimo, porque os dois participantes gastaram tempo conferindo a data (18 s e 15 s, acima da meta de 10 s de SC-003).
+- **Mensagem pronta editável** antes do envio (FR-017 na spec e RF05 no PRD), porque os dois querem ajustar o tom.
+- A decisão de o colecionador disparar o lembrete foi mantida.
 
 ## Pendências
 
-- **Teste com pelo menos 2 usuários:** depende do POD. O roteiro e o modelo de registro estão prontos; os resultados entram em `docs/produto/teste-prototipo.md`.
+- **Perfil, data e formato das sessões** não foram anotados no registro do teste; o POD pode completá-los.
