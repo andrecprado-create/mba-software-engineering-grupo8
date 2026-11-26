@@ -24,9 +24,20 @@ type Fetch = (url: string, init: { method: string; headers: Record<string, strin
   json: () => Promise<unknown>;
 }>;
 
-export function montarRequisicaoGemini(imagemBase64: string, tipoMime: string) {
+const FORMATO_JSON =
+  'Responda só com um objeto JSON com as chaves reconhecida (booleano), titulo, autor, volume e editora (textos).';
+
+/**
+ * Monta o pedido ao Gemini. Com `comEsquema`, a resposta é forçada pelo esquema JSON;
+ * sem ele (segunda tentativa, se o modelo recusar o esquema), o formato vai só na instrução.
+ */
+export function montarRequisicaoGemini(imagemBase64: string, tipoMime: string, comEsquema = true) {
+  const parts = [{ inlineData: { mimeType: tipoMime, data: imagemBase64 } }, { text: `${INSTRUCAO} ${FORMATO_JSON}` }];
+  if (!comEsquema) {
+    return { contents: [{ parts }], generationConfig: { temperature: 0, responseMimeType: 'application/json' } };
+  }
   return {
-    contents: [{ parts: [{ inline_data: { mime_type: tipoMime, data: imagemBase64 } }, { text: INSTRUCAO }] }],
+    contents: [{ parts }],
     generationConfig: {
       temperature: 0,
       responseMimeType: 'application/json',
@@ -61,6 +72,13 @@ export function interpretarRespostaGemini(resposta: unknown) {
   return { titulo: s(dados.titulo), autor: s(dados.autor), volume: s(dados.volume), editora: s(dados.editora) };
 }
 
+/** Registra só o status e a mensagem de erro do Gemini, nunca a imagem (FR-015). */
+async function registrarErro(resposta: { status: number; json: () => Promise<unknown> }, modelo: string, etapa: string) {
+  const corpo = (await resposta.json().catch(() => null)) as { error?: { message?: string } } | null;
+  const mensagem = (corpo?.error?.message ?? '').slice(0, 300);
+  console.error(`Gemini respondeu ${resposta.status} (${etapa}) para o modelo ${modelo}: ${mensagem}`);
+}
+
 export async function tratarLeituraCapa(
   metodo: string,
   corpo: unknown,
@@ -80,18 +98,26 @@ export async function tratarLeituraCapa(
   const modelo = ambiente.GEMINI_MODEL || MODELO_PADRAO;
   const base = (ambiente.GOOGLE_GEMINI_BASE_URL || URL_GEMINI_PADRAO).replace(/\/$/, '');
   const url = `${base}/v1beta/models/${modelo}:generateContent`;
+  const chave = ambiente.GEMINI_API_KEY;
+  const pedir = (comEsquema: boolean) =>
+    buscar(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-goog-api-key': chave },
+      body: JSON.stringify(montarRequisicaoGemini(imagemBase64, tipoMime, comEsquema)),
+    });
+
   let resposta;
   try {
-    resposta = await buscar(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'x-goog-api-key': ambiente.GEMINI_API_KEY },
-      body: JSON.stringify(montarRequisicaoGemini(imagemBase64, tipoMime)),
-    });
+    resposta = await pedir(true);
+    if (resposta.status === 400) {
+      await registrarErro(resposta, modelo, 'com esquema');
+      resposta = await pedir(false);
+    }
   } catch {
     return { status: 502, corpo: { erro: 'O serviço de leitura não respondeu.' } };
   }
   if (!resposta.ok) {
-    console.error(`Gemini respondeu ${resposta.status} para o modelo ${modelo}`); // sem conteúdo da imagem (FR-015)
+    await registrarErro(resposta, modelo, 'final');
     return { status: 502, corpo: { erro: 'O serviço de leitura não respondeu.' } };
   }
 

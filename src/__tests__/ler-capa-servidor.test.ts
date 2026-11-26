@@ -56,7 +56,20 @@ describe('US1 — API de leitura de capa', () => {
     expect(buscar).not.toHaveBeenCalled();
   });
 
+  it('Se o modelo recusar o esquema (400), tenta de novo sem esquema', async () => {
+    const erro = jest.spyOn(console, 'error').mockImplementation(() => {});
+    const buscar = jest
+      .fn()
+      .mockResolvedValueOnce({ ok: false, status: 400, json: async () => ({ error: { message: 'schema' } }) })
+      .mockResolvedValueOnce({ ok: true, status: 200, json: async () => respostaGemini({ reconhecida: true, titulo: 'Watchmen' }) });
+    const r = await tratarLeituraCapa('POST', FOTO, CHAVE, buscar);
+    expect(r.status).toBe(200);
+    expect(JSON.parse(buscar.mock.calls[1][1].body).generationConfig.responseSchema).toBeUndefined();
+    erro.mockRestore();
+  });
+
   it('Falha do Gemini vira 502', async () => {
+    jest.spyOn(console, 'error').mockImplementation(() => {});
     expect((await tratarLeituraCapa('POST', FOTO, CHAVE, fetchFalso({}, false))).status).toBe(502);
   });
 
