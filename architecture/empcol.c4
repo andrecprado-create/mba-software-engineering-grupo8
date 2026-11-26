@@ -1,0 +1,96 @@
+// Arquitetura do EmpCol em LikeC4: C1 (contexto) e C2 (containers).
+// Reflete o que está no código (src/) e as decisões dos ADRs 0001 a 0004.
+// Regra do bootcamp: todo serviço que existe no código precisa aparecer no C2.
+
+specification {
+  element pessoa {
+    style {
+      shape person
+    }
+  }
+  element sistema
+  element externo {
+    style {
+      color muted
+    }
+  }
+  element container
+  element armazenamento {
+    style {
+      shape storage
+    }
+  }
+}
+
+model {
+  colecionador = pessoa 'Colecionador' {
+    description 'Coleciona HQs, mangás e livros, empresta a amigos e quer saber o que está com quem.'
+  }
+
+  amigo = pessoa 'Amigo' {
+    description 'Pega edições emprestadas. Recebe o comprovante e os lembretes que o colecionador envia.'
+  }
+
+  empcol = sistema 'EmpCol' {
+    description 'Cataloga edições pela foto da capa e controla os empréstimos.'
+
+    app = container 'Aplicativo EmpCol' {
+      technology 'Expo (React Native), TypeScript, Expo Router, React Native Paper'
+      description 'Android, iOS e web (exportação web do mesmo código). Telas: estante, catalogar, edição e emprestar. Regras de negócio em src/lib.'
+    }
+
+    dados = armazenamento 'Armazenamento local' {
+      technology 'AsyncStorage (no aparelho; localStorage na web)'
+      description 'Edições, empréstimos e amigos (nome e um contato). Nada sai do aparelho (ADR 0003).'
+    }
+
+    api = container 'API de leitura de capa' {
+      technology 'Netlify Functions, TypeScript (src/netlify/functions, src/servidor)'
+      description 'POST /api/ler-capa: recebe a foto, chama o Gemini com a chave guardada no servidor e devolve título, autor, volume e editora. Não grava a imagem.'
+    }
+
+    app -> dados 'lê e grava a estante'
+    app -> api 'envia a foto da capa' {
+      technology 'HTTPS, JSON'
+    }
+  }
+
+  gemini = externo 'Google Gemini API' {
+    description 'Modelo multimodal que lê a capa.'
+  }
+
+  mensagens = externo 'App de mensagens do colecionador' {
+    description 'WhatsApp ou e-mail. Abre com a mensagem pronta, editável, para o colecionador enviar (FR-016, FR-017).'
+  }
+
+  netlify = externo 'Netlify' {
+    description 'Hospeda a versão web e a função da API; faz o deploy a cada merge na main (ADR 0004).'
+  }
+
+  colecionador -> empcol.app 'cataloga, empresta e acompanha devoluções'
+  empcol.api -> gemini 'pede a leitura da capa' {
+    technology 'HTTPS (generateContent)'
+  }
+  empcol.app -> mensagens 'abre a mensagem pronta' {
+    technology 'link wa.me ou mailto'
+  }
+  mensagens -> amigo 'entrega comprovante, lembrete e cobrança'
+  netlify -> empcol.api 'executa'
+  netlify -> empcol.app 'serve a versão web'
+}
+
+views {
+  view contexto {
+    title 'C1 · Contexto do EmpCol'
+    description 'O sistema, as pessoas e os sistemas externos.'
+    include colecionador, amigo, empcol, gemini, mensagens
+    autoLayout TopBottom
+  }
+
+  view containers of empcol {
+    title 'C2 · Containers do EmpCol'
+    description 'Aplicativo, armazenamento local e API de leitura de capa, com a tecnologia de cada um.'
+    include *, colecionador, amigo, gemini, mensagens, netlify
+    autoLayout TopBottom
+  }
+}

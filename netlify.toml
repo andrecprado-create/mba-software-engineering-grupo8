@@ -1,0 +1,17 @@
+# Deploy do EmpCol na Netlify (ADR 0004): versão web do app Expo + função de leitura de capa.
+# Os caminhos abaixo são relativos à pasta base (src/).
+[build]
+  base = "src"
+  command = "npm ci && npx expo export --platform web"
+  publish = "dist"
+  functions = "netlify/functions"
+
+[build.environment]
+  NODE_VERSION = "24"
+
+# A SPA do Expo Router (web.output = "single") responde todas as rotas pelo index.html.
+# A API (/api/ler-capa) é declarada pela própria função e tem prioridade sobre este redirecionamento.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

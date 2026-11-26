@@ -1,0 +1,44 @@
+# CI do EmpCol: tipos, testes e build web a cada push e Pull Request (checkpoint 04).
+# O deploy (CD) é feito pela Netlify a partir da main (ADR 0004).
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  app:
+    name: App (tipos, testes e build web)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: src
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: src/package-lock.json
+      - run: npm ci
+      - name: Verificar tipos
+        run: npx tsc --noEmit
+      - name: Testes (Jest)
+        run: npx jest --ci
+      - name: Build web (Expo)
+        run: npx expo export --platform web
+
+  arquitetura:
+    name: Arquitetura (LikeC4)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Validar o modelo C1/C2
+        run: npx --yes likec4@1 validate architecture
