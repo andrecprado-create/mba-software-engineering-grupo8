@@ -20,7 +20,9 @@ Todos operam agentes e revisam PRs. O papel define quem responde pelo artefato.
 
 ## Links
 
-* **MVP (URL pública):** a definir no checkpoint 04 (walking skeleton) e publicada no checkpoint 05.
+* **MVP (URL pública):** publicada pela Netlify a partir da `main` (walking skeleton no checkpoint 04, fluxo completo no checkpoint 05). Endereço a registrar aqui depois da ligação do site.
+* **Arquitetura C1/C2:** [`architecture/`](architecture/README.md)
+* **Aplicativo (código e como rodar):** [`src/`](src/README.md)
 * **Landing page de validação:** <https://visionary-profiterole-17a94c.netlify.app/>
 * **Protótipo navegável (checkpoint 03):** <https://andrecprado-create.github.io/mba-software-engineering-grupo8/prototype/>
 
@@ -39,7 +41,10 @@ O resultado final do projeto é um **aplicativo mobile**. A decisão está regis
 * **Aplicativo:** Expo (React Native) com TypeScript e Expo Router
 * **URL pública do MVP:** versão web exportada pelo Expo a partir do mesmo código
 * **IA e visão computacional:** modelo multimodal (Gemini API) para reconhecer a capa e extrair os metadados, chamado pelo back-end
-* **Back-end, banco e autenticação:** Supabase (PostgreSQL), a confirmar no C2
+* **Dados:** no próprio aparelho (AsyncStorage), sem conta nem banco no servidor ([ADR 0003](docs/adr/0003-dados-no-aparelho-e-api-de-leitura.md))
+* **Back-end:** uma função serverless na Netlify só para a leitura da capa (`/api/ler-capa`)
+* **Design system:** React Native Paper (Material Design 3) ([ADR 0002](docs/adr/0002-design-system-react-native-paper.md))
+* **Hospedagem e CI/CD:** Netlify (site e API) e GitHub Actions (tipos, testes, build e LikeC4) ([ADR 0004](docs/adr/0004-hospedagem-netlify-e-ci-github-actions.md))
 * **Especificações:** [Spec-Kit](https://github.com/github/spec-kit), em `specs/`
 * **Arquitetura como código:** LikeC4 (C1 e C2)
 

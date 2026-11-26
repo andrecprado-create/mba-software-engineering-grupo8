@@ -1,4 +1,4 @@
-# AGENTS.md — Harness do agente (v1, checkpoint 03)
+# AGENTS.md — Harness do agente (v2, checkpoint 04)
 
 Este arquivo define as regras, a stack e os limites para qualquer agente de IA (Claude Code, Cursor, GitHub Copilot, Kiro) que trabalhe neste repositório. Ele evolui a cada encontro com o que o POD aprender.
 
@@ -26,7 +26,11 @@ Decisão registrada em `docs/adr/0001-aplicativo-mobile-expo.md`.
 * **Versão web (URL pública do MVP):** exportação web do próprio Expo, a partir do mesmo código
 * **Armazenamento local:** AsyncStorage
 * **IA:** Gemini API (modelo multimodal), chamada sempre pelo back-end, nunca direto do aplicativo
-* **Back-end, banco e autenticação:** Supabase (PostgreSQL), a confirmar no C2 (checkpoint 04)
+* **Dados:** só no aparelho (AsyncStorage), sem conta nem banco no servidor (`docs/adr/0003-dados-no-aparelho-e-api-de-leitura.md`)
+* **Back-end:** uma Netlify Function em TypeScript para a leitura da capa (`src/netlify/functions`, lógica em `src/servidor`)
+* **Captura da foto:** `expo-image-picker`
+* **Hospedagem e CI/CD:** Netlify e GitHub Actions (`docs/adr/0004-hospedagem-netlify-e-ci-github-actions.md`)
+* **Arquitetura:** LikeC4 em `architecture/`; todo container novo no código entra no C2 no mesmo PR
 * **Design system:** React Native Paper (Material Design 3), com um único tema central (`docs/adr/0002-design-system-react-native-paper.md`)
 * **Testes:** Jest e React Native Testing Library
 
@@ -43,6 +47,8 @@ Qualquer dependência fora desta lista precisa de ADR aprovado antes de ser adic
 ## Aprendizados incorporados
 
 * **Checkpoint 02:** confira o conteúdo atual de um arquivo antes de afirmar o que ele diz; depois de editar listas numeradas (requisitos, histórias), confira a numeração completa; nunca registre como evidência de discovery um dado que o POD não confirmou.
+* **Checkpoint 03:** confira se o estado inicial do protótipo não contradiz as tarefas do roteiro de teste; em repositório público, participantes de teste aparecem só com primeiro nome e iniciais, sem dados sensíveis.
+* **Checkpoint 04:** o Expo muda a cada SDK (o projeto usa o SDK 58). Antes de usar uma API do Expo ou do React Native, consulte a documentação da versão (`https://docs.expo.dev/versions/v58.0.0/`) e instale pacotes com `npx expo install`. Em `src/`, rode `npm run typecheck` e `npm test` antes de abrir o PR.
 
 ## Diário agêntico
 

@@ -1,0 +1,42 @@
+{
+  "expo": {
+    "name": "EmpCol",
+    "slug": "empcol",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#E6F4FE",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "output": "single",
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-status-bar",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "O EmpCol usa suas fotos para ler a capa da edição.",
+          "cameraPermission": "O EmpCol usa a câmera para fotografar a capa da edição."
+        }
+      ]
+    ],
+    "scheme": "empcol",
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}

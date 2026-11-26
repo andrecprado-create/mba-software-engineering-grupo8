@@ -1,0 +1,94 @@
+// API de leitura de capa: recebe a foto, pergunta ao Gemini e devolve título, autor, volume e editora.
+// Roda como função serverless na Netlify (netlify/functions/ler-capa.mts). ADR 0003.
+// FR-015: a imagem não é gravada e nenhum dado pessoal é enviado ao modelo, só a foto da capa.
+
+export const MODELO_PADRAO = 'gemini-2.5-flash';
+export const TAMANHO_MAXIMO_BASE64 = 5_000_000; // ~3,7 MB de imagem; a Netlify aceita até 6 MB por requisição
+const TIPOS_ACEITOS = ['image/jpeg', 'image/png', 'image/webp', 'image/heic'];
+
+export const INSTRUCAO = [
+  'Você recebe a foto da capa de uma HQ, mangá ou livro.',
+  'Identifique o título da edição, o autor (ou autores), o volume ou número e a editora.',
+  'Responda só com o que estiver visível na capa ou for certo pela edição; deixe vazio o que não souber.',
+  'Se a imagem não for a capa de uma publicação, responda reconhecida = false.',
+].join(' ');
+
+export type Ambiente = { GEMINI_API_KEY?: string; GEMINI_MODEL?: string };
+export type RespostaApi = { status: number; corpo: Record<string, unknown> };
+type Fetch = (url: string, init: { method: string; headers: Record<string, string>; body: string }) => Promise<{
+  ok: boolean;
+  status: number;
+  json: () => Promise<unknown>;
+}>;
+
+export function montarRequisicaoGemini(imagemBase64: string, tipoMime: string) {
+  return {
+    contents: [{ parts: [{ inline_data: { mime_type: tipoMime, data: imagemBase64 } }, { text: INSTRUCAO }] }],
+    generationConfig: {
+      temperature: 0,
+      responseMimeType: 'application/json',
+      responseSchema: {
+        type: 'OBJECT',
+        properties: {
+          reconhecida: { type: 'BOOLEAN' },
+          titulo: { type: 'STRING' },
+          autor: { type: 'STRING' },
+          volume: { type: 'STRING' },
+          editora: { type: 'STRING' },
+        },
+        required: ['reconhecida'],
+      },
+    },
+  };
+}
+
+/** Extrai os dados da capa da resposta do Gemini; devolve null se a capa não foi reconhecida. */
+export function interpretarRespostaGemini(resposta: unknown) {
+  const texto = (resposta as { candidates?: { content?: { parts?: { text?: string }[] } }[] })?.candidates?.[0]
+    ?.content?.parts?.[0]?.text;
+  if (!texto) return null;
+  let dados: Record<string, unknown>;
+  try {
+    dados = JSON.parse(texto);
+  } catch {
+    return null;
+  }
+  const s = (v: unknown) => (typeof v === 'string' ? v.trim() : '');
+  if (dados.reconhecida !== true || !s(dados.titulo)) return null;
+  return { titulo: s(dados.titulo), autor: s(dados.autor), volume: s(dados.volume), editora: s(dados.editora) };
+}
+
+export async function tratarLeituraCapa(
+  metodo: string,
+  corpo: unknown,
+  ambiente: Ambiente,
+  buscar: Fetch,
+): Promise<RespostaApi> {
+  if (metodo !== 'POST') return { status: 405, corpo: { erro: 'Use POST.' } };
+  if (!ambiente.GEMINI_API_KEY) return { status: 503, corpo: { erro: 'Leitura por foto ainda não configurada.' } };
+
+  const { imagemBase64, tipoMime } = (corpo ?? {}) as { imagemBase64?: unknown; tipoMime?: unknown };
+  if (typeof imagemBase64 !== 'string' || !imagemBase64) return { status: 400, corpo: { erro: 'Envie a foto da capa.' } };
+  if (typeof tipoMime !== 'string' || !TIPOS_ACEITOS.includes(tipoMime))
+    return { status: 415, corpo: { erro: 'Formato de imagem não aceito.' } };
+  if (imagemBase64.length > TAMANHO_MAXIMO_BASE64)
+    return { status: 413, corpo: { erro: 'Foto grande demais. Tente de novo com menos zoom.' } };
+
+  const modelo = ambiente.GEMINI_MODEL || MODELO_PADRAO;
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${modelo}:generateContent`;
+  let resposta;
+  try {
+    resposta = await buscar(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-goog-api-key': ambiente.GEMINI_API_KEY },
+      body: JSON.stringify(montarRequisicaoGemini(imagemBase64, tipoMime)),
+    });
+  } catch {
+    return { status: 502, corpo: { erro: 'O serviço de leitura não respondeu.' } };
+  }
+  if (!resposta.ok) return { status: 502, corpo: { erro: 'O serviço de leitura não respondeu.' } };
+
+  const dados = interpretarRespostaGemini(await resposta.json());
+  if (!dados) return { status: 422, corpo: { erro: 'Não reconhecemos esta capa.' } };
+  return { status: 200, corpo: dados };
+}
