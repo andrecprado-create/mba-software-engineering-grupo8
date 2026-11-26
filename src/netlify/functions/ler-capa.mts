@@ -6,7 +6,11 @@ export default async (req: Request): Promise<Response> => {
   const { status, corpo: resposta } = await tratarLeituraCapa(
     req.method,
     corpo,
-    { GEMINI_API_KEY: process.env.GEMINI_API_KEY, GEMINI_MODEL: process.env.GEMINI_MODEL },
+    {
+      GEMINI_API_KEY: process.env.GEMINI_API_KEY,
+      GEMINI_MODEL: process.env.GEMINI_MODEL,
+      GOOGLE_GEMINI_BASE_URL: process.env.GOOGLE_GEMINI_BASE_URL,
+    },
     fetch,
   );
   return Response.json(resposta, { status });

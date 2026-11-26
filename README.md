@@ -20,7 +20,7 @@ Todos operam agentes e revisam PRs. O papel define quem responde pelo artefato.
 
 ## Links
 
-* **MVP (URL pública):** publicada pela Netlify a partir da `main` (walking skeleton no checkpoint 04, fluxo completo no checkpoint 05). Endereço a registrar aqui depois da ligação do site.
+* **MVP (URL pública):** <https://empcol.netlify.app> — publicada pela Netlify a cada merge na `main` (walking skeleton no checkpoint 04, fluxo completo no checkpoint 05)
 * **Arquitetura C1/C2:** [`architecture/`](architecture/README.md)
 * **Aplicativo (código e como rodar):** [`src/`](src/README.md)
 * **Landing page de validação:** <https://visionary-profiterole-17a94c.netlify.app/>

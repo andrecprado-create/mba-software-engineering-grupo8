@@ -31,7 +31,7 @@ Base: [plan.md](plan.md) e [spec.md](spec.md). `[x]` = feito; `[ ]` = pendente.
 
 ## Fase 4 — MVP (checkpoint 05)
 
-- [ ] T030 Ligar o site na Netlify, configurar `GEMINI_API_KEY` e registrar a URL pública no README
+- [x] T030 Ligar o site na Netlify (<https://empcol.netlify.app>), usar o AI Gateway para o Gemini e registrar a URL pública no README
 - [ ] T031 Eval da leitura de capa em `/evals/` com 10 a 20 capas reais, rodando na CI (SC-002)
 - [ ] T032 Limite de requisições da API de leitura de capa
 - [ ] T033 Testar o fluxo no celular com o Expo Go e medir SC-001 e SC-003
