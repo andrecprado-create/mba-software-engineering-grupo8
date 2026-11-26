@@ -22,6 +22,7 @@ Todos operam agentes e revisam PRs. O papel define quem responde pelo artefato.
 
 * **MVP (URL pública):** a definir no checkpoint 04 (walking skeleton) e publicada no checkpoint 05.
 * **Landing page de validação:** <https://visionary-profiterole-17a94c.netlify.app/>
+* **Protótipo navegável (checkpoint 03):** <https://andrecprado-create.github.io/mba-software-engineering-grupo8/prototype/>
 
 ## Artefatos de produto
 
@@ -67,7 +68,7 @@ O resultado final do projeto é um **aplicativo mobile**. A decisão está regis
 
 ## Regras de trabalho
 
-* A branch `main` é protegida: merge só via Pull Request, com revisão de outro membro do POD e CI verde.
+* A branch `main` é protegida: merge só via Pull Request, revisado e aprovado pelo POD, com CI verde.
 * No máximo 2 PRs abertos ao mesmo tempo.
 * Uma tag por checkpoint (`checkpoint-01` a `checkpoint-06`), criada até 22h40 de cada encontro.
 * Nenhum segredo (chave de API, senha, token) entra no repositório.
