@@ -4,6 +4,12 @@ O **EmpCol** é um aplicativo mobile para colecionadores de HQs e leitores com b
 
 > Proposta de valor: catalogação instantânea por foto e gestão de empréstimos para que você nunca mais perca uma HQ ou livro da sua coleção.
 
+## Método: spec-driven com IA
+
+Este projeto é construído com **desenvolvimento orientado a especificação (spec-driven development)**: a especificação em `specs/` é a fonte da verdade, um agente de IA gera o código a partir dela, e testes e eval provam que o código cumpre o especificado. **O objetivo do POD não é aprender uma linguagem de programação, e sim dominar essa técnica de desenvolvimento de software baseada em IA**, governando o agente com especificação, revisão e evidência.
+
+Para explicar qualquer trecho do código, isto é, o que ele faz, de qual história veio e por que foi aceito, veja [**Método spec-driven e guia para explicar o código**](docs/metodo-spec-driven.md).
+
 ---
 
 ## POD e papéis (Grupo 8)
