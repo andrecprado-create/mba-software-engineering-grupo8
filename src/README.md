@@ -42,6 +42,14 @@ npm run export:web   # gera a versão web em dist/
 
 A versão publicada fica em <https://empcol.netlify.app>. No celular, a leitura por foto precisa de `EXPO_PUBLIC_API_URL=https://empcol.netlify.app` (veja `.env.example`). Sem ela, ou se o serviço de IA falhar, o aplicativo avisa e oferece o preenchimento à mão.
 
+## Instalar no Android (APK)
+
+O APK é gerado pelo EAS Build, o serviço de build na nuvem da Expo, com o perfil `preview` de [`eas.json`](eas.json). Esse perfil faz distribuição interna e já embute o endereço da API, para a leitura por foto funcionar.
+
+* **Build 1.0.0 (27/11/2026):** <https://expo.dev/accounts/andre.cprado/projects/empcol/builds/343f154c-b752-4fb8-92a5-f2008a2bbe14>. A página tem o botão "Install" e o QR code para abrir direto no celular.
+* No Android, abra o link no aparelho, baixe o `.apk` (cerca de 95 MB) e permita "instalar apps desconhecidos" para o navegador quando o sistema pedir.
+* Para gerar um novo APK: `cd src`, depois `npx eas-cli login` e `npx eas-cli build -p android --profile preview`.
+
 ## Disciplina de desenvolvimento mobile
 
 As quatro telas acima atendem à opção 1 do trabalho de mobile (2 a 4 telas do aplicativo do bootcamp):
