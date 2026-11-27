@@ -18,7 +18,7 @@ export const normalizar = (s) =>
     .normalize('NFD')
     .replace(/[̀-ͯ]/g, '')
     .toLowerCase()
-    .replace(/[^a-z0-9.@ -]/g, ' ')
+    .replace(/[^a-z0-9@]/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();
 const digitos = (s) => String(s ?? '').replace(/\D/g, '').replace(/^0+(?=\d)/, '');

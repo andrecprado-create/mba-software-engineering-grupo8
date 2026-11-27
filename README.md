@@ -30,7 +30,7 @@ Todos operam agentes e revisam PRs. O papel define quem responde pelo artefato.
 
 * [Lean Canvas](docs/produto/lean-canvas.md) · [Evidências de discovery](docs/produto/discovery.md) · [AI Canvas](docs/produto/ai-canvas.md)
 * [MoSCoW do MVP](docs/produto/moscow.md) · [PRD v1](docs/produto/prd-v1.md) · [Spec 001 — histórias e critérios de aceite](specs/001-catalogo-emprestimos/spec.md)
-* [ADRs](docs/adr/) · [Diário agêntico](docs/diario/)
+* [ADRs](docs/adr/) · [Diário agêntico](docs/diario/) · [Rastreabilidade](docs/produto/rastreabilidade.md) · [Eval da IA](evals/README.md)
 
 ---
 

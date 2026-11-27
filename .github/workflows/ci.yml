@@ -1,4 +1,4 @@
-# CI do EmpCol: tipos, testes e build web a cada push e Pull Request (checkpoint 04).
+# CI do EmpCol: tipos, testes, build web, LikeC4 e eval da IA a cada push e Pull Request (checkpoints 04 e 05).
 # O deploy (CD) é feito pela Netlify a partir da main (ADR 0004).
 name: CI
 
@@ -6,6 +6,7 @@ on:
   push:
     branches: [main]
   pull_request:
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -42,3 +43,27 @@ jobs:
           node-version: 24
       - name: Validar o modelo C1/C2
         run: npx --yes likec4@1 validate architecture
+
+  eval:
+    name: Eval da IA (leitura de capa)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      # Avalia a API publicada (https://empcol.netlify.app); reprova abaixo de 85% de acerto (SC-002).
+      - name: Rodar o eval
+        run: node evals/rodar-eval.mjs --minimo 0.85
+
+  e2e:
+    name: Fluxo principal (ponta a ponta)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      # Catalogar pela foto, salvar, emprestar e ver a estante no site publicado, num Chrome headless.
+      - name: Rodar o fluxo principal
+        run: node e2e/fluxo-principal.mjs
