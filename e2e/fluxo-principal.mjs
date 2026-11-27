@@ -51,7 +51,8 @@ try {
   const aguardarTexto = async (alvo, ms = 20000) => {
     const fim = Date.now() + ms;
     while (Date.now() < fim) { if ((await texto())?.includes(alvo)) return true; await esperar(250); }
-    throw new Error(`não apareceu na tela: "${alvo}"`);
+    const tela = ((await texto()) ?? '').replace(/s+/g, ' ').slice(0, 600);
+    throw new Error(`não apareceu na tela: "${alvo}". Tela atual: ${tela}`);
   };
   // Toca no elemento visível cujo texto é exatamente o informado (botões do React Native Web são divs).
   const tocar = (rotulo) =>
