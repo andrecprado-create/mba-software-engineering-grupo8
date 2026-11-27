@@ -32,7 +32,9 @@ Base: [plan.md](plan.md) e [spec.md](spec.md). `[x]` = feito; `[ ]` = pendente.
 ## Fase 4 — MVP (checkpoint 05)
 
 - [x] T030 Ligar o site na Netlify (<https://empcol.netlify.app>), usar o AI Gateway para o Gemini e registrar a URL pública no README
-- [ ] T031 Eval da leitura de capa em `/evals/` com 10 a 20 capas reais, rodando na CI (SC-002)
-- [ ] T032 Limite de requisições da API de leitura de capa
-- [ ] T033 Testar o fluxo no celular com o Expo Go e medir SC-001 e SC-003 (no walking skeleton, a API levou 3,3 a 5,1 s com uma capa de teste)
+- [x] T031 Eval da leitura de capa em `/evals/` com 19 casos (10 capas reais, 5 difíceis, 4 adversariais), rodando na CI (SC-001, SC-002)
+- [x] T032 Limite de requisições da API de leitura de capa (30 por minuto por IP)
+- [ ] T033 Testar o fluxo no celular com o Expo Go e medir SC-003 (o tempo da leitura, SC-001, já é medido pelo eval)
 - [ ] T034 Tornar o job de testes obrigatório na proteção da `main`
+- [x] T035 Teste de ponta a ponta do fluxo principal no site publicado (`e2e/fluxo-principal.mjs`), rodando na CI
+- [x] T036 Trocar o modelo padrão pelo mais rápido com a mesma taxa de acerto (gemini-3.1-flash-lite) e descartar campos com texto solto

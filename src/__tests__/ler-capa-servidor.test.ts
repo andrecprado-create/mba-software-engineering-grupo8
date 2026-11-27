@@ -32,7 +32,7 @@ describe('US1 — API de leitura de capa', () => {
     const buscar = fetchFalso(respostaGemini({ reconhecida: true, titulo: 'X' }));
     await tratarLeituraCapa('POST', FOTO, { ...CHAVE, GOOGLE_GEMINI_BASE_URL: 'https://gw.exemplo/gemini/' }, buscar);
     await tratarLeituraCapa('POST', FOTO, CHAVE, buscar);
-    expect(buscar.mock.calls[0][0]).toBe('https://gw.exemplo/gemini/v1beta/models/gemini-3.8-flash:generateContent');
+    expect(buscar.mock.calls[0][0]).toBe('https://gw.exemplo/gemini/v1beta/models/gemini-3.1-flash-lite:generateContent');
     expect(buscar.mock.calls[1][0]).toMatch(/^https:\/\/generativelanguage\.googleapis\.com\/v1beta\/models\//);
   });
 
@@ -80,7 +80,7 @@ describe('US1 — API de leitura de capa', () => {
     await tratarLeituraCapa('POST', { ...FOTO, modelo: 'gemini-3.5-flash-lite' }, CHAVE, buscar);
     await tratarLeituraCapa('POST', { ...FOTO, modelo: 'modelo-caro-qualquer' }, CHAVE, buscar);
     expect(buscar.mock.calls[0][0]).toContain('/models/gemini-3.5-flash-lite:');
-    expect(buscar.mock.calls[1][0]).toContain('/models/gemini-3.8-flash:');
+    expect(buscar.mock.calls[1][0]).toContain('/models/gemini-3.1-flash-lite:');
   });
 
   it('Falha do Gemini vira 502', async () => {
@@ -92,5 +92,7 @@ describe('US1 — API de leitura de capa', () => {
     expect(interpretarRespostaGemini({})).toBeNull();
     expect(interpretarRespostaGemini({ candidates: [{ content: { parts: [{ text: 'não é json' }] } }] })).toBeNull();
     expect(interpretarRespostaGemini(respostaGemini({ reconhecida: true, titulo: '  ' }))).toBeNull();
+    const solto = 'x'.repeat(500);
+    expect(interpretarRespostaGemini(respostaGemini({ reconhecida: true, titulo: 'Watchmen', volume: solto }))?.volume).toBe('');
   });
 });

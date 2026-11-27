@@ -2,7 +2,9 @@
 // Roda como função serverless na Netlify (netlify/functions/ler-capa.mts). ADR 0003.
 // FR-015: a imagem não é gravada e nenhum dado pessoal é enviado ao modelo, só a foto da capa.
 
-export const MODELO_PADRAO = 'gemini-3.8-flash';
+// Escolhido pelo eval de 27/11/2026 (evals/README.md): mesma taxa de acerto do 3.8-flash e 19 de 19 respostas em até 3 s.
+export const MODELO_PADRAO = 'gemini-3.1-flash-lite';
+export const TAMANHO_MAXIMO_CAMPO = 120; // resposta maior que isso é texto solto do modelo, não um dado da capa
 /** Modelos que o eval pode comparar pelo campo 'modelo' do pedido; fora desta lista vale o padrão. */
 export const MODELOS_PERMITIDOS = ['gemini-3.8-flash', 'gemini-3.5-flash', 'gemini-3.5-flash-lite', 'gemini-3.1-flash-lite'];
 export const URL_GEMINI_PADRAO = 'https://generativelanguage.googleapis.com';
@@ -82,7 +84,10 @@ export function interpretarRespostaGemini(resposta: unknown) {
   } catch {
     return null;
   }
-  const s = (v: unknown) => (typeof v === 'string' ? v.trim() : '');
+  const s = (v: unknown) => {
+    const t = typeof v === 'string' ? v.trim() : '';
+    return t.length > TAMANHO_MAXIMO_CAMPO ? '' : t;
+  };
   if (dados.reconhecida !== true || !s(dados.titulo)) return null;
   return { titulo: s(dados.titulo), autor: s(dados.autor), volume: s(dados.volume), editora: s(dados.editora) };
 }
