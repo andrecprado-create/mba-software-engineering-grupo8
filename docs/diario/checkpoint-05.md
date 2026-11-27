@@ -10,10 +10,17 @@
 - **Teste de ponta a ponta** (`e2e/fluxo-principal.mjs`): no site publicado, num Chrome headless, catalogar pela foto com a IA de verdade, salvar, emprestar, ver o comprovante e a estante com "Emprestado". Roda na CI.
 - **Rastreabilidade** em `docs/produto/rastreabilidade.md`: cada história ligada aos requisitos, PRs, código e testes, incluindo o que está parcial.
 
+## Resultado no fechamento (site publicado, 27/11/2026)
+
+- **Eval:** 17 de 19 (89%). Os 10 casos comuns e os 4 adversariais passaram, e 3 dos 5 difíceis. Mediana de 1,2 s, p90 de 1,6 s, e 19 de 19 respostas em até 3 s. Relatório em [`evals/resultados/2026-11-27.md`](../../evals/resultados/2026-11-27.md).
+- **Ponta a ponta:** a IA leu a capa no aplicativo em 1,4 s; edição salva, empréstimo com comprovante e estante com "Emprestado".
+- **CI da `main`:** os quatro jobs verdes (app, LikeC4, eval e ponta a ponta).
+
 ## Onde o agente errou ou foi corrigido
 
 - **Raciocínio mínimo sem checar o modelo:** o agente ligou o "raciocínio mínimo" do Gemini para ganhar tempo sem confirmar que o `gemini-3.8-flash` aceitava esse nível. O modelo recusava (`THINKING_LEVEL_MINIMAL` não suportado), cada leitura virava duas chamadas, e a segunda rodada do eval piorou: 79% e 4,5 s de mediana. O log da função mostrou a causa; a correção foi trocar de modelo, decidida pelo eval.
 - **Normalização do eval:** a primeira versão do script não ignorava o hífen e contou "Gen - Pés Descalços" como título errado. Corrigido antes das rodadas que definiram o modelo.
+- **Falha não reproduzida na CI:** nas duas rodadas da CI do PR #15, o navegador do teste recebeu "Leitura por foto ainda não configurada": a função rodou sem a chave do AI Gateway. O eval, na mesma CI, funcionou, e a rodada seguinte na `main` passou. A causa não foi encontrada; a função passou a registrar quais variáveis de IA estão presentes quando a chave falta, e o teste mostra a tela no momento da falha.
 - **Seletor de arquivo no teste de ponta a ponta:** o primeiro teste travou porque o Chrome só abre o seletor de arquivo com gesto do usuário. Resolvido marcando os toques do script como gesto do usuário.
 
 ## Onde o POD interveio
