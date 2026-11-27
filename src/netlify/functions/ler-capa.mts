@@ -13,6 +13,11 @@ export default async (req: Request): Promise<Response> => {
     },
     fetch,
   );
+  if (status === 503) {
+    // Diagnóstico: só os NOMES das variáveis de IA presentes, nunca os valores.
+    const nomes = Object.keys(process.env).filter((n) => /GEMINI|GOOGLE|AI_GATEWAY/i.test(n));
+    console.error(`Sem GEMINI_API_KEY nesta execução; variáveis de IA presentes: ${nomes.join(', ') || 'nenhuma'}`);
+  }
   return Response.json(resposta, { status });
 };
 
