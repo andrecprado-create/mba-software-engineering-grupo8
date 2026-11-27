@@ -57,16 +57,30 @@ describe('US1 — API de leitura de capa', () => {
     expect(buscar).not.toHaveBeenCalled();
   });
 
-  it('Se o modelo recusar o esquema (400), tenta de novo sem esquema', async () => {
+  it('Se o modelo recusar um recurso (400), tenta sem pensamento mínimo e depois sem esquema', async () => {
     const erro = jest.spyOn(console, 'error').mockImplementation(() => {});
+    const recusa = { ok: false, status: 400, json: async () => ({ error: { message: 'recurso' } }) };
     const buscar = jest
       .fn()
-      .mockResolvedValueOnce({ ok: false, status: 400, json: async () => ({ error: { message: 'schema' } }) })
+      .mockResolvedValueOnce(recusa)
+      .mockResolvedValueOnce(recusa)
       .mockResolvedValueOnce({ ok: true, status: 200, json: async () => respostaGemini({ reconhecida: true, titulo: 'Watchmen' }) });
     const r = await tratarLeituraCapa('POST', FOTO, CHAVE, buscar);
     expect(r.status).toBe(200);
-    expect(JSON.parse(buscar.mock.calls[1][1].body).generationConfig.responseSchema).toBeUndefined();
+    const cfg = (i: number) => JSON.parse(buscar.mock.calls[i][1].body).generationConfig;
+    expect(cfg(0).thinkingConfig).toEqual({ thinkingLevel: 'minimal' });
+    expect(cfg(1).thinkingConfig).toBeUndefined();
+    expect(cfg(1).responseSchema).toBeDefined();
+    expect(cfg(2).responseSchema).toBeUndefined();
     erro.mockRestore();
+  });
+
+  it('Só aceita modelo da lista permitida; fora dela usa o padrão', async () => {
+    const buscar = fetchFalso(respostaGemini({ reconhecida: true, titulo: 'X' }));
+    await tratarLeituraCapa('POST', { ...FOTO, modelo: 'gemini-3.5-flash-lite' }, CHAVE, buscar);
+    await tratarLeituraCapa('POST', { ...FOTO, modelo: 'modelo-caro-qualquer' }, CHAVE, buscar);
+    expect(buscar.mock.calls[0][0]).toContain('/models/gemini-3.5-flash-lite:');
+    expect(buscar.mock.calls[1][0]).toContain('/models/gemini-3.8-flash:');
   });
 
   it('Falha do Gemini vira 502', async () => {
